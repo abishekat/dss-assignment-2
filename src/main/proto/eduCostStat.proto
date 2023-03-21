@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package proto;
+
+option java_package = "cu.assignment2.proto";
+option java_multiple_files = true;
+import "google/protobuf/empty.proto";
+
+
+message Response {
+  string id = 1;
+  int32 year = 2;
+  string state = 3;
+  string type = 4;
+  string length = 5;
+  string expense = 6;
+  double value = 7;
+}
+
+message Q1Request {
+  int32 year = 1;
+  string state = 2;
+  string type = 3;
+  string length = 4;
+  string expense = 5;
+
+}
+
+message RequestYear{
+  string year = 1;
+}
+
+message Request{
+  string name = 1;
+}
+
+message Resp{
+  string name = 1;
+}
+
+service EduCostStatService{
+  rpc test(Request) returns (Resp);
+  rpc eduCostStatQueryOne(RequestYear) returns (stream EduCostStatResponse);
+}
+
+message EduCostStatFields {
+  string id = 1;
+  int32 year = 2;
+  string state = 3;
+  string type = 4;
+  string length = 5;
+  string expense = 6;
+  double value = 7;
+}
+
+message EduCostStatResponse {
+  repeated EduCostStatFields statFields = 1;
+}
