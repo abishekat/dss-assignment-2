@@ -1,5 +1,6 @@
 package cu.dssassignment2.mongospringutil.grpc.server;
 
+import cu.dssassignment2.mongospringutil.repository.EduCostStatRepository;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 
@@ -7,10 +8,10 @@ import java.io.IOException;
 
 public class EduCostStatServer {
     public static void main(String[] args) throws IOException, InterruptedException {
-        int port = 50057;
+        int port = 6565;
+
         Server server = ServerBuilder
-                .forPort(port)
-                .addService(new EduCostStatServiceImpl()).build();
+                .forPort(port).build();
 
         server.start();
         System.out.println("Server Started");

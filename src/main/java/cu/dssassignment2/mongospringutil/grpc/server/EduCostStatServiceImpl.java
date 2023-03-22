@@ -4,6 +4,7 @@ import cu.assignment2.proto.*;
 import cu.dssassignment2.mongospringutil.model.EduCostStat;
 import cu.dssassignment2.mongospringutil.repository.EduCostStatRepository;
 import io.grpc.stub.StreamObserver;
+import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class EduCostStatServiceImpl extends EduCostStatServiceGrpc.EduCostStatServiceImplBase {
+    private final EduCostStatRepository eduCostStatRepository;
+   @Autowired
+   public EduCostStatServiceImpl(EduCostStatRepository eduCostStatRepository) {
+       this.eduCostStatRepository = eduCostStatRepository;
+   }
 
-    @Autowired
-    EduCostStatRepository eduCostStatRepository;
 
     @Override
     public void test(Request request, StreamObserver<Resp> responseObserver) {
@@ -24,22 +28,29 @@ public class EduCostStatServiceImpl extends EduCostStatServiceGrpc.EduCostStatSe
         responseObserver.onCompleted();
     }
 
-
     @Override
-    public void eduCostStatQueryOne(RequestYear request, StreamObserver<EduCostStatResponse> responseObserver) {
-        List<EduCostStat> list= eduCostStatRepository.findAll();
+    public void queryEduCostStat(QueryRequest request, StreamObserver<QueryResponse> responseObserver) {
+//        List<EduCostStat> results = eduCostStatRepository.findByYearAndStateAndTypeAndLengthAndExpense(request.getYear(), request.getState(),
+//                request.getType(), request.getLength(), request.getExpense());
+        System.out.println("Received request with name: " + request.getYear());
+        List<EduCostStat> results = eduCostStatRepository.findAll();
 
-        List<EduCostStatFields> listStat= (List<EduCostStatFields>) list.stream().map((item) ->{
-                    EduCostStatFields stat = EduCostStatFields.newBuilder().setId(item.getId()).setExpense(item.getExpense())
-                            .setLength(item.getLength()).setType(item.getType()).setState(item.getState()).setValue(item.getValue())
-                            .setYear(item.getYear()).build();
-                    return stat;
-                }).collect(Collectors.toList());;
+        QueryResponse.Builder responseBuilder = QueryResponse.newBuilder();
+        for (EduCostStat eduCostStat : results) {
+            cu.assignment2.proto.EduCostStat.Builder eduCostStatBuilder = cu.assignment2.proto.EduCostStat.newBuilder();
+            eduCostStatBuilder.setId(eduCostStat.getId());
+            eduCostStatBuilder.setYear(eduCostStat.getYear());
+            eduCostStatBuilder.setState(eduCostStat.getState());
+            eduCostStatBuilder.setType(eduCostStat.getType());
+            eduCostStatBuilder.setLength(eduCostStat.getLength());
+            eduCostStatBuilder.setExpense(eduCostStat.getExpense());
+            eduCostStatBuilder.setValue(eduCostStat.getValue());
 
-        EduCostStatResponse allStats=EduCostStatResponse.newBuilder().addAllStatFields(listStat).build();
-        responseObserver.onNext(allStats);
+            responseBuilder.addEduCostStats(eduCostStatBuilder.build());
+        }
+        responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
     }
 
-}
 
+}

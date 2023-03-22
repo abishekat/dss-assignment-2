@@ -5,11 +5,12 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class EduCostStatClient {
-   static ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50057)
+   static ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 6569)
             .usePlaintext()
             .build();
     static EduCostStatServiceGrpc.EduCostStatServiceBlockingStub stub = EduCostStatServiceGrpc.newBlockingStub(channel);
@@ -22,11 +23,11 @@ public class EduCostStatClient {
         }
 
         switch (args[0]) {
-//            case "test":
-//            doTest(channel);
-//            break;
+            case "test":
+            doTest(channel);
+            break;
             case "q1":
-                doQuerying1(channel);
+                getCost(channel);
                 break;
 
             default:
@@ -37,17 +38,33 @@ public class EduCostStatClient {
         channel.shutdown();
     }
 
-    public static List<EduCostStat> doQuerying1(ManagedChannel channel) {
-        RequestYear request = RequestYear.newBuilder().setYear("2013").build();
-//        EduCostStatResponse response= stub.eduCostStatQueryOne(request);
-//        System.out.println(response);
-        return new ArrayList<>();
+    private static void getCost(ManagedChannel channel) {
+        QueryRequest request = QueryRequest.newBuilder()
+                .setYear(2013)
+                .setState("Alabama")
+                .setType("Private")
+                .setLength("4-year")
+                .setExpense("Fees/Tuition")
+                .build();
+
+        QueryResponse response = stub.queryEduCostStat(request);
+        for (EduCostStat eduCostStat : response.getEduCostStatsList()) {
+            System.out.println(eduCostStat.getId());
+            System.out.println(eduCostStat.getYear());
+            System.out.println(eduCostStat.getState());
+            System.out.println(eduCostStat.getType());
+            System.out.println(eduCostStat.getLength());
+            System.out.println(eduCostStat.getExpense());
+            System.out.println(eduCostStat.getValue());
+            System.out.println("-------------");
+        }
     }
-//
-//    private static void doTest(ManagedChannel channel) {
-//        Resp response = stub.test(Request.newBuilder().setName("Abishek").build());
-//        System.out.println(response.getName());
-//    }
+
+
+    private static void doTest(ManagedChannel channel) {
+        Resp response = stub.test(Request.newBuilder().setName("Abishek").build());
+        System.out.println(response.getName());
+    }
 
 
 }
