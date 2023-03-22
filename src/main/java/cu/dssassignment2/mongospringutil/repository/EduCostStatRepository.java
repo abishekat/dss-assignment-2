@@ -12,4 +12,6 @@ public interface EduCostStatRepository extends MongoRepository<EduCostStat, Stri
     List<cu.assignment2.proto.EduCostStat> findByYear(String year);
 
     List<EduCostStat> findByYearAndStateAndTypeAndLengthAndExpense(String year, String state, String type, String length, String expense);
+
+    List<EduCostStat> findByYearAndTypeAndLength(String year, String type, String length);
 }

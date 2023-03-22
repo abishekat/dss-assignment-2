@@ -3,15 +3,14 @@ package cu.dssassignment2.mongospringutil.grpc.server;
 import cu.assignment2.proto.*;
 import cu.dssassignment2.mongospringutil.model.EduCostStat;
 import cu.dssassignment2.mongospringutil.model.EduCostStatQueryOne;
+import cu.dssassignment2.mongospringutil.model.EduCostStatQueryTwo;
 import cu.dssassignment2.mongospringutil.repository.*;
 import io.grpc.stub.StreamObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EduCostStatServiceImpl extends EduCostStatServiceGrpc.EduCostStatServiceImplBase {
@@ -82,5 +81,52 @@ public class EduCostStatServiceImpl extends EduCostStatServiceGrpc.EduCostStatSe
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void q2(Query2Request request, StreamObserver<QueryResponse> responseObserver) {
+        List<EduCostStat> results = eduCostStatRepository.findByYearAndTypeAndLength(request.getYear(),
+                request.getType(), request.getLength());
+        Map<String, Double> stateExpensesMap = new HashMap<>();
+        for (EduCostStat eduCostStat : results) {
+            String state = eduCostStat.getState();
+            Double expense = Double.parseDouble(eduCostStat.getValue());
+            if (stateExpensesMap.containsKey(state)) {
+                expense += stateExpensesMap.get(state);
+            }
+            stateExpensesMap.put(state, expense);
+        }
 
+        List<Map.Entry<String, Double>> sortedList = stateExpensesMap.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .limit(5)
+                .collect(Collectors.toList());
+
+        List<EduCostStatQueryTwo> q2Results = new ArrayList<>();
+        for (Map.Entry<String, Double> entry : sortedList) {
+            EduCostStatQueryTwo queryTwo = new EduCostStatQueryTwo();
+            queryTwo.setYear(request.getYear());
+            queryTwo.setType(request.getType());
+            queryTwo.setLength(request.getLength());
+            queryTwo.setState(entry.getKey());
+            queryTwo.setExpense(entry.getValue().toString());
+            q2Results.add(queryTwo);
+        }
+
+        eduCostStatQueryTwoRepository.saveAll(q2Results);
+
+        QueryResponse.Builder responseBuilder = QueryResponse.newBuilder();
+        for (EduCostStat eduCostStat : results) {
+            cu.assignment2.proto.EduCostStat.Builder eduCostStatBuilder = cu.assignment2.proto.EduCostStat.newBuilder();
+            eduCostStatBuilder.setId(eduCostStat.getId());
+            eduCostStatBuilder.setYear(eduCostStat.getYear());
+            eduCostStatBuilder.setState(eduCostStat.getState());
+            eduCostStatBuilder.setType(eduCostStat.getType());
+            eduCostStatBuilder.setLength(eduCostStat.getLength());
+            eduCostStatBuilder.setExpense(eduCostStat.getExpense());
+            eduCostStatBuilder.setValue(eduCostStat.getValue());
+
+            responseBuilder.addEduCostStats(eduCostStatBuilder.build());
+        }
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+    }
 }

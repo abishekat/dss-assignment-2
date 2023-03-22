@@ -24,6 +24,9 @@ public class EduCostStatClient {
             case "q1":
                 getCost(channel);
                 break;
+            case "q2":
+                get5ExpensiveState(channel);
+                break;
 
             default:
                 System.out.println("Keyword Invalid: " + args[0]);
@@ -31,6 +34,26 @@ public class EduCostStatClient {
 
         System.out.println("Shutting down");
         channel.shutdown();
+    }
+
+    private static void get5ExpensiveState(ManagedChannel channel) {
+        Query2Request request = Query2Request.newBuilder()
+                .setYear("2013")
+                .setType("Private")
+                .setLength("4-year")
+                .build();
+
+        QueryResponse response = stub.q2(request);
+        for (EduCostStat eduCostStat : response.getEduCostStatsList()) {
+            System.out.println(eduCostStat.getId());
+            System.out.println(eduCostStat.getYear());
+            System.out.println(eduCostStat.getState());
+            System.out.println(eduCostStat.getType());
+            System.out.println(eduCostStat.getLength());
+            System.out.println(eduCostStat.getExpense());
+            System.out.println(eduCostStat.getValue());
+            System.out.println("-------------");
+        }
     }
 
     private static void getCost(ManagedChannel channel) {

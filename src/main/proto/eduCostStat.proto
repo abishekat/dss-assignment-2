@@ -11,6 +11,7 @@ import "google/protobuf/empty.proto";
 service EduCostStatService{
   rpc test(Request) returns (Response);
   rpc Q1(QueryRequest) returns (QueryResponse) {}
+  rpc Q2(Query2Request) returns (QueryResponse) {}
 }
 
 message EduCostStat {
@@ -33,9 +34,13 @@ message QueryRequest {
   string type = 3;
   string length = 4;
   string expense = 5;
-
 }
 
+message Query2Request {
+  string year = 1;
+  string type = 2;
+  string length = 3;
+}
 
 message Request{
   string name = 1;
