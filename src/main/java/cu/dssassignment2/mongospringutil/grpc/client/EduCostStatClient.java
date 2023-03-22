@@ -4,13 +4,8 @@ import cu.assignment2.proto.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 public class EduCostStatClient {
-   static ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 6569)
+    static ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 6569)
             .usePlaintext()
             .build();
     static EduCostStatServiceGrpc.EduCostStatServiceBlockingStub stub = EduCostStatServiceGrpc.newBlockingStub(channel);
@@ -24,8 +19,8 @@ public class EduCostStatClient {
 
         switch (args[0]) {
             case "test":
-            doTest(channel);
-            break;
+                doTest(channel);
+                break;
             case "q1":
                 getCost(channel);
                 break;
@@ -40,14 +35,14 @@ public class EduCostStatClient {
 
     private static void getCost(ManagedChannel channel) {
         QueryRequest request = QueryRequest.newBuilder()
-                .setYear(2013)
+                .setYear("2013")
                 .setState("Alabama")
                 .setType("Private")
                 .setLength("4-year")
                 .setExpense("Fees/Tuition")
                 .build();
 
-        QueryResponse response = stub.queryEduCostStat(request);
+        QueryResponse response = stub.q1(request);
         for (EduCostStat eduCostStat : response.getEduCostStatsList()) {
             System.out.println(eduCostStat.getId());
             System.out.println(eduCostStat.getYear());
@@ -62,7 +57,7 @@ public class EduCostStatClient {
 
 
     private static void doTest(ManagedChannel channel) {
-        Resp response = stub.test(Request.newBuilder().setName("Abishek").build());
+        Response response = stub.test(Request.newBuilder().setName("Abishek").build());
         System.out.println(response.getName());
     }
 

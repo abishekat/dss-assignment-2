@@ -21,6 +21,10 @@ public class DssAssignment2Application {
 
     private int grpcServerPort = 6569;
 
+    public static void main(String[] args) throws InterruptedException {
+        SpringApplication.run(DssAssignment2Application.class, args);
+    }
+
     @Bean
     public Server grpcServer(EduCostStatServiceImpl eduCostStatServiceImpl) {
         return ServerBuilder.forPort(grpcServerPort)
@@ -35,10 +39,6 @@ public class DssAssignment2Application {
             System.out.println("gRPC server started, listening on port: " + grpcServerPort);
             grpcServer.awaitTermination();
         };
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        SpringApplication.run(DssAssignment2Application.class, args);
     }
 
 }

@@ -2,8 +2,8 @@ package cu.dssassignment2.mongospringutil.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "EduCostStat")
-public class EduCostStat {
+@Document(collection = "EduCostStatQueryTwo")
+public class EduCostStatQueryTwo {
     private String id;
     private String year;
     private String state;
@@ -12,7 +12,7 @@ public class EduCostStat {
     private String expense;
     private String value;
 
-    public EduCostStat(String id, String year, String state, String type, String length, String expense, String value) {
+    public EduCostStatQueryTwo(String id, String year, String state, String type, String length, String expense, String value) {
         this.id = id;
         this.year = year;
         this.state = state;
@@ -20,6 +20,9 @@ public class EduCostStat {
         this.length = length;
         this.expense = expense;
         this.value = value;
+    }
+
+    public EduCostStatQueryTwo() {
     }
 
     public String getId() {

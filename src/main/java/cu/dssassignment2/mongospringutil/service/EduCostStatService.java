@@ -25,7 +25,7 @@ public class EduCostStatService {
         return eduCostStatRepository.findByYear(year);
     }
 
-    public List<EduCostStat> getEduCostStatByQ1Request(int year, String state, String type, String length, String expense) {
+    public List<EduCostStat> getEduCostStatByQ1Request(String year, String state, String type, String length, String expense) {
         return eduCostStatRepository.findByYearAndStateAndTypeAndLengthAndExpense(year, state, type, length, expense);
     }
 }

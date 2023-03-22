@@ -1,6 +1,5 @@
 package cu.dssassignment2.mongospringutil.grpc.server;
 
-import cu.dssassignment2.mongospringutil.repository.EduCostStatRepository;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 

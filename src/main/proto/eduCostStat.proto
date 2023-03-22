@@ -9,30 +9,26 @@ import "google/protobuf/empty.proto";
 
 
 service EduCostStatService{
-  rpc test(Request) returns (Resp);
-  rpc queryEduCostStat(QueryRequest) returns (QueryResponse) {}
+  rpc test(Request) returns (Response);
+  rpc Q1(QueryRequest) returns (QueryResponse) {}
 }
 
 message EduCostStat {
   string id = 1;
-  int32 year = 2;
+  string year = 2;
   string state = 3;
   string type = 4;
   string length = 5;
   string expense = 6;
-  double value = 7;
+  string value = 7;
 }
 
 message QueryResponse {
- repeated EduCostStat eduCostStats = 1;
-}
-
-message StreamECSFields{
-  EduCostStat streamAllFields=1;
+  repeated EduCostStat eduCostStats = 1;
 }
 
 message QueryRequest {
-  int32 year = 1;
+  string year = 1;
   string state = 2;
   string type = 3;
   string length = 4;
@@ -40,14 +36,11 @@ message QueryRequest {
 
 }
 
-message RequestYear{
-  string year = 1;
-}
 
 message Request{
   string name = 1;
 }
 
-message Resp{
+message Response{
   string name = 1;
 }
