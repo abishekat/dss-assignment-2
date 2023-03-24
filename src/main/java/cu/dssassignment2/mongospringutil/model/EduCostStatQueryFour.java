@@ -13,6 +13,10 @@ public class EduCostStatQueryFour {
     private String value;
 
     private String growthRate;
+    private String pastYear;
+
+    public EduCostStatQueryFour() {
+    }
 
     public String getGrowthRate() {
         return growthRate;
@@ -20,9 +24,6 @@ public class EduCostStatQueryFour {
 
     public void setGrowthRate(String growthRate) {
         this.growthRate = growthRate;
-    }
-
-    public EduCostStatQueryFour() {
     }
 
     public String getId() {
@@ -88,7 +89,5 @@ public class EduCostStatQueryFour {
     public void setPastYear(String pastYear) {
         this.pastYear = pastYear;
     }
-
-    private String pastYear;
 
 }

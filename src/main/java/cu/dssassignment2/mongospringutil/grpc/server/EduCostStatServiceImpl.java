@@ -2,11 +2,7 @@ package cu.dssassignment2.mongospringutil.grpc.server;
 
 import cu.assignment2.proto.*;
 import cu.dssassignment2.mongospringutil.model.EduCostStat;
-import cu.dssassignment2.mongospringutil.model.EduCostStatQueryOne;
-import cu.dssassignment2.mongospringutil.model.EduCostStatQueryThree;
-import cu.dssassignment2.mongospringutil.model.EduCostStatQueryFour;
-import cu.dssassignment2.mongospringutil.model.EduCostStatQueryFive;
-import cu.dssassignment2.mongospringutil.model.EduCostStatQueryTwo;
+import cu.dssassignment2.mongospringutil.model.*;
 import cu.dssassignment2.mongospringutil.repository.*;
 import io.grpc.stub.StreamObserver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,7 +180,7 @@ public class EduCostStatServiceImpl extends EduCostStatServiceGrpc.EduCostStatSe
     @Override
     public void q4(Query4Request request, StreamObserver<QueryResponse> responseObserver) {
 
-    int baseYear = Integer.parseInt(request.getYear());
+        int baseYear = Integer.parseInt(request.getYear());
         int[] pastYears = {baseYear - 1, baseYear - 3, baseYear - 5};
 
         List<EduCostStat> baseYearStats = eduCostStatRepository.findByYearAndTypeAndLength(request.getYear(),
@@ -218,7 +214,7 @@ public class EduCostStatServiceImpl extends EduCostStatServiceGrpc.EduCostStatSe
                     Map<String, Integer> pastYearStateExpense = pastYearStateExpenses.get(year);
                     if (pastYearStateExpense.containsKey(state)) {
                         int pastYearExpense = pastYearStateExpense.get(state);
-                        growthRate += (double)(baseYearExpense - pastYearExpense) / (double)baseYearExpense;
+                        growthRate += (double) (baseYearExpense - pastYearExpense) / (double) baseYearExpense;
                     }
                 }
             }
@@ -230,7 +226,7 @@ public class EduCostStatServiceImpl extends EduCostStatServiceGrpc.EduCostStatSe
                 .limit(5)
                 .collect(Collectors.toList());
 
-        List<cu.dssassignment2.mongospringutil.model.EduCostStatQueryFour> q4Results=new ArrayList<>();
+        List<cu.dssassignment2.mongospringutil.model.EduCostStatQueryFour> q4Results = new ArrayList<>();
 
         for (Map.Entry<String, Double> entry : sortedStateGrowthRates) {
             cu.dssassignment2.mongospringutil.model.EduCostStatQueryFour queryFour = new cu.dssassignment2.mongospringutil.model.EduCostStatQueryFour();
@@ -277,7 +273,7 @@ public class EduCostStatServiceImpl extends EduCostStatServiceGrpc.EduCostStatSe
         }
         List<EduCostStatQueryFive> q5Results = new ArrayList<>();
         for (Map.Entry<String, List<Double>> entry : regionExpenseMap.entrySet()) {
-            EduCostStatQueryFive q5=new EduCostStatQueryFive();
+            EduCostStatQueryFive q5 = new EduCostStatQueryFive();
             String region = entry.getKey();
             List<Double> expenses = entry.getValue();
             double sum = expenses.stream().mapToDouble(Double::doubleValue).sum();

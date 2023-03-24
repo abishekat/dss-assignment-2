@@ -10,18 +10,18 @@ public class EduCostStatQueryFive {
     public EduCostStatQueryFive() {
     }
 
+    public EduCostStatQueryFive(String expense, String region) {
+
+        this.expense = expense;
+        this.region = region;
+    }
+
     @Override
     public String toString() {
         return "EduCostStatQueryFive{" +
                 "region='" + region + '\'' +
                 ", expense='" + expense + '\'' +
                 '}';
-    }
-
-    public EduCostStatQueryFive(String expense, String region) {
-
-        this.expense = expense;
-        this.region = region;
     }
 
     public String getRegion() {
