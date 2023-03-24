@@ -12,14 +12,14 @@ public class EduCostStatQueryFour {
     private String expense;
     private String value;
 
-    public EduCostStatQueryFour(String id, String year, String state, String type, String length, String expense, String value) {
-        this.id = id;
-        this.year = year;
-        this.state = state;
-        this.type = type;
-        this.length = length;
-        this.expense = expense;
-        this.value = value;
+    private String growthRate;
+
+    public String getGrowthRate() {
+        return growthRate;
+    }
+
+    public void setGrowthRate(String growthRate) {
+        this.growthRate = growthRate;
     }
 
     public EduCostStatQueryFour() {
@@ -81,16 +81,14 @@ public class EduCostStatQueryFour {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "EduCostStat{" +
-                "id='" + id + '\'' +
-                ", year='" + year + '\'' +
-                ", state='" + state + '\'' +
-                ", type='" + type + '\'' +
-                ", length='" + length + '\'' +
-                ", expense='" + expense + '\'' +
-                ", value='" + value + '\'' +
-                '}';
+    public String getPastYear() {
+        return pastYear;
     }
+
+    public void setPastYear(String pastYear) {
+        this.pastYear = pastYear;
+    }
+
+    private String pastYear;
+
 }

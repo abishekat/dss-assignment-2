@@ -4,65 +4,32 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "EduCostStatQueryFive")
 public class EduCostStatQueryFive {
-    private String id;
-    private String year;
-    private String state;
-    private String type;
-    private String length;
+    private String region;
     private String expense;
-    private String value;
-
-    public EduCostStatQueryFive(String id, String year, String state, String type, String length, String expense, String value) {
-        this.id = id;
-        this.year = year;
-        this.state = state;
-        this.type = type;
-        this.length = length;
-        this.expense = expense;
-        this.value = value;
-    }
 
     public EduCostStatQueryFive() {
     }
 
-    public String getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "EduCostStatQueryFive{" +
+                "region='" + region + '\'' +
+                ", expense='" + expense + '\'' +
+                '}';
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public EduCostStatQueryFive(String expense, String region) {
+
+        this.expense = expense;
+        this.region = region;
     }
 
-    public String getYear() {
-        return year;
+    public String getRegion() {
+        return region;
     }
 
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getLength() {
-        return length;
-    }
-
-    public void setLength(String length) {
-        this.length = length;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getExpense() {
@@ -71,26 +38,5 @@ public class EduCostStatQueryFive {
 
     public void setExpense(String expense) {
         this.expense = expense;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return "EduCostStat{" +
-                "id='" + id + '\'' +
-                ", year='" + year + '\'' +
-                ", state='" + state + '\'' +
-                ", type='" + type + '\'' +
-                ", length='" + length + '\'' +
-                ", expense='" + expense + '\'' +
-                ", value='" + value + '\'' +
-                '}';
     }
 }

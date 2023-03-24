@@ -27,6 +27,15 @@ public class EduCostStatClient {
             case "q2":
                 get5ExpensiveState(channel);
                 break;
+            case "q3":
+                get5EconomicState(channel);
+                break;
+            case "q4":
+                get5TopGrowthRate(channel);
+                break;
+            case "q5":
+                expenseByRegion(channel);
+                break;
 
             default:
                 System.out.println("Keyword Invalid: " + args[0]);
@@ -34,6 +43,45 @@ public class EduCostStatClient {
 
         System.out.println("Shutting down");
         channel.shutdown();
+    }
+
+    private static void get5TopGrowthRate(ManagedChannel channel) {
+        Query4Request request = Query4Request.newBuilder()
+                .setYear("2013")
+                .setType("Private")
+                .setLength("4-year")
+                .build();
+        QueryResponse response = stub.q4(request);
+        for (EduCostStat eduCostStat : response.getEduCostStatsList()) {
+            System.out.println(eduCostStat.getId());
+            System.out.println(eduCostStat.getYear());
+            System.out.println(eduCostStat.getState());
+            System.out.println(eduCostStat.getType());
+            System.out.println(eduCostStat.getLength());
+            System.out.println(eduCostStat.getExpense());
+            System.out.println(eduCostStat.getValue());
+            System.out.println("-------------");
+        }
+    }
+
+    private static void get5EconomicState(ManagedChannel channel) {
+        Query3Request request = Query3Request.newBuilder()
+                .setYear("2013")
+                .setType("Private")
+                .setLength("4-year")
+                .setExpense("Fees/Tuition")
+                .build();
+        QueryResponse response = stub.q3(request);
+        for (EduCostStat eduCostStat : response.getEduCostStatsList()) {
+            System.out.println(eduCostStat.getId());
+            System.out.println(eduCostStat.getYear());
+            System.out.println(eduCostStat.getState());
+            System.out.println(eduCostStat.getType());
+            System.out.println(eduCostStat.getLength());
+            System.out.println(eduCostStat.getExpense());
+            System.out.println(eduCostStat.getValue());
+            System.out.println("-------------");
+        }
     }
 
     private static void get5ExpensiveState(ManagedChannel channel) {
@@ -76,6 +124,15 @@ public class EduCostStatClient {
             System.out.println(eduCostStat.getValue());
             System.out.println("-------------");
         }
+    }
+
+    private static void expenseByRegion(ManagedChannel channel) {
+        Query4Request request = Query4Request.newBuilder()
+                .setYear("2013")
+                .setType("Private")
+                .setLength("4-year")
+                .build();
+        Query5Response response = stub.q5(request);
     }
 
 

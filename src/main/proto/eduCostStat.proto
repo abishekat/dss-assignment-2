@@ -12,6 +12,9 @@ service EduCostStatService{
   rpc test(Request) returns (Response);
   rpc Q1(QueryRequest) returns (QueryResponse) {}
   rpc Q2(Query2Request) returns (QueryResponse) {}
+  rpc Q3(Query3Request) returns (QueryResponse) {}
+  rpc Q4(Query4Request) returns (QueryResponse) {}
+  rpc Q5(Query4Request) returns (Query5Response) {}
 }
 
 message EduCostStat {
@@ -40,6 +43,28 @@ message Query2Request {
   string year = 1;
   string type = 2;
   string length = 3;
+}
+
+message Query3Request {
+  string year = 1;
+  string type = 2;
+  string length = 3;
+  string expense = 4  ;
+}
+
+message Query4Request {
+  string year = 1;
+  string type = 2;
+  string length = 3;
+}
+
+message Query5Response{
+  repeated RegionExpense regionExpenses = 1;
+}
+
+message RegionExpense {
+  string region = 1;
+  string expense = 2;
 }
 
 message Request{
