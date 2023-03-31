@@ -19,14 +19,4 @@ public interface EduCostStatRepository extends MongoRepository<EduCostStat, Stri
 
     List<EduCostStat> findByYearAndTypeAndLengthAndExpense(String year, String type, String length, String expense);
 
-    @Aggregation(pipeline = {
-            "{$match: {\"region\": {\"$in\": [\"Northeast\", \"Midwest\", \"South\", \"West\", \"Pacific\"]}}}",
-            "{$group: {\"_id\": {\"region\": \"$region\", \"year\": \"$year\", \"type\": \"$type\", \"length\": \"$length\"}, \"avgExpense\": {\"$avg\": \"$overall\"}}}",
-            "{$project: {\"_id\": 0, \"region\": \"$_id.region\", \"year\": \"$_id.year\", \"type\": \"$_id.type\", \"length\": \"$_id.length\", \"avgExpense\": \"$avgExpense\"}}",
-            "{$out: \"EduCostStatQueryFive\"}"
-    })
-    void aggregateRegionAvgExpense();
-
-    @Query("{ region: { $in: [ 'Northeast', 'Midwest', 'South', 'West', 'Pacific' ] } }")
-    List<EduCostStat> findAllByRegion();
 }
