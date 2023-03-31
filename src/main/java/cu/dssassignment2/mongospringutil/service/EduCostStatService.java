@@ -2,9 +2,11 @@ package cu.dssassignment2.mongospringutil.service;
 
 import cu.dssassignment2.mongospringutil.model.EduCostStat;
 import cu.dssassignment2.mongospringutil.repository.EduCostStatRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EduCostStatService {
 
     EduCostStatRepository eduCostStatRepository;
