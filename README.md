@@ -15,7 +15,7 @@
    dss-assignment-2 -> generateProto
    ```
 
-4. Run spring application and run client
+4. Run spring application and create and run client with arguments
 
 5. To run the application on terminal 
 
