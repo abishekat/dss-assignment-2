@@ -1,6 +1,7 @@
 # gRPC-Gradle-MongoDB
 
 [Abishek Arumugam Thiruselvi](https://www.abishekarumugam.com)('40218896')
+[Srinidhi Honakre Srinivas]
 
 # Running the Application in Eclipse
 #### Prerequisites: Eclipse IDE plugins Buildship Gradle Integration 3.0, Spring Tools 3, Git, Java 17 or greater, Maven 3.9 or higher and Gradle 7.6 or higher.
