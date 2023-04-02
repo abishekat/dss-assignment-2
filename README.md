@@ -13,7 +13,7 @@
 3. Open the gradle tab 
 
    ```shell
-   dss-assignment-2 -> generateProto
+   dss-assignment-2 -> Others -> generateProto
    ```
 
 4. Run spring application and create and run client with arguments
