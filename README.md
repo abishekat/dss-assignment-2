@@ -7,24 +7,17 @@
 
 1. Open Git Perspective in IntelliJ IDEA and clone this [repository]([https://github.com/abishekat/dss-assignment-2](https://github.com/abishekat/dss-assignment-2))
 
-2. Import the project into project explorer.
+2. Import the project into project explorer using git url.
 
-3. Right-click on the project in the project explorer 
-
-   ```shell
-   run -> clean install
-   ```
-4. To run the application right-click on the project in the project explorer 
+3. Open the gradle tab 
 
    ```shell
-   run > java application / junit
+   dss-assignment-2 -> generateProto
    ```
+
+4. Run spring application and run client
+
 5. To run the application on terminal 
-
-   ```shell
-   mvn spring-boot:run
-   ```
-6. To run the application on terminal 
 
    ```shell
    gradle build
