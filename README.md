@@ -1,4 +1,4 @@
-# dss-assignment-2
+# gRPC-Gradle-MongoDB
 
 [Abishek Arumugam Thiruselvi](https://www.abishekarumugam.com)('40218896')
 
