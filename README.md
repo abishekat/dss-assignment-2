@@ -3,8 +3,8 @@
 1. [Abishek Arumugam Thiruselvi](https://www.abishekarumugam.com)('40218896')
 2. Srinidhi Honakre Srinivas
 
-# Running the Application in Eclipse
-#### Prerequisites: Eclipse IDE plugins Buildship Gradle Integration 3.0, Spring Tools 3, Git, Java 17 or greater, Maven 3.9 or higher and Gradle 7.6 or higher.
+# Running the Application in IntelliJ IDEA
+#### Prerequisites: IDE plugins Buildship Gradle Integration 3.0, Spring Tools 3, Git, Java 17 or greater, Maven 3.9 or higher and Gradle 7.6 or higher.
 
 1. Open Git Perspective in IntelliJ IDEA and clone this [repository]([https://github.com/abishekat/dss-assignment-2](https://github.com/abishekat/dss-assignment-2))
 
