@@ -24,6 +24,12 @@
    ```shell
    mvn spring-boot:run
    ```
+6. To run the application on terminal 
+
+   ```shell
+   gradle build
+   gradle run
+   ```
 ## RESULTS
 
 #### Structure
